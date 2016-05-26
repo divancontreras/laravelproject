@@ -13,4 +13,7 @@
 
 Route::get('/', 'PagesController@Home');
 Route::get('about', 'PagesController@About');
+//SHOW CARDS
+Route::get('cards','CardsController@index');
+Route::get('cards/{card}','CardsController@show');
 
