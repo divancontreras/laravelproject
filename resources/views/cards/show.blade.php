@@ -9,8 +9,8 @@
                         @foreach($card->notes as $note)
                   
                         <div style="height:50px"> <li class="list-group-item">{{ $note->body }}
-                              <a href="#" style="float:center">{{$note->user->user_id}}</a>
-                        <button onClick="location.href='/notes/{{ $note->id }}/edit'" style="position: absolute; right: 5px; top: 0;" class="btn btn-primary" >Edit</button> </li>
+                              <a href="#" class="pull-center">{{$note->user->username}}</a>
+                        <button onClick="location.href='/notes/{{ $note->id }}/edit'" class="btn btn-primary pull-right" >Edit</button> </li>
                               </div>
 
                         @endforeach
@@ -19,14 +19,23 @@
                   <h3> Add a new note </h3>
 
                   <form method="POST" action="/cards/{{ $card->id }}/notes">
+                  {{csrf_field()}}
                         <div class="form-group">
-                              <textarea name="body" class="form-control"></textarea>
+                              <textarea name="body" class="form-control">{{old('body')}}</textarea>
                         </div>
                         <div class="form-group">
                               <button type="submit" class="btn btn-primary">Add Note</button>
                         </div>                        
                   </form>
-                  
-            </div>
+
+            </form>
+            @if (count($errors)>0)
+                  <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                  </ul>
+            @endif
+            </div>            
       </div>
 @stop
